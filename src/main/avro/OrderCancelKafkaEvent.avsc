@@ -1,0 +1,11 @@
+{
+  "name": "OrderCancelKafkaEvent",
+  "namespace": "example",
+  "type": "record",
+  "fields": [
+    {
+      "name": "odrderId",
+      "type": "long"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "OrderCreateKafkaEvent",
+  "namespace": "example",
+  "type": "record",
+  "fields": [
+    {
+      "name": "odrderId",
+      "type": "long"
+    },
+    {
+      "name": "itemId",
+      "type": "long"
+    }
+  ]
+}
