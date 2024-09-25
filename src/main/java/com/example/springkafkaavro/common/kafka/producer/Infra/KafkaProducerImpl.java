@@ -1,6 +1,6 @@
 package com.example.springkafkaavro.common.kafka.producer.Infra;
 
-import com.example.springkafkaavro.common.kafka.producer.application.KafkaProducer;
+import com.example.springkafkaavro.common.kafka.producer.application.interfaces.KafkaProducer;
 import jakarta.annotation.PreDestroy;
 import java.io.Serializable;
 import java.util.concurrent.CompletableFuture;

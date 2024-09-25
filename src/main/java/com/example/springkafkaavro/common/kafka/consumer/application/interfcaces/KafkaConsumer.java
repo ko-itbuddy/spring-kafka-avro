@@ -1,4 +1,4 @@
-package com.example.springkafkaavro.common.kafka.consumer;
+package com.example.springkafkaavro.common.kafka.consumer.application.interfcaces;
 
 import java.util.List;
 import org.apache.avro.specific.SpecificRecordBase;
