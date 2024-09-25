@@ -4,12 +4,15 @@ spring:
     name: spring-kafka-avro
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
   datasource:
     url: jdbc:mysql://localhost:3306/kafka-avro
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 1234
+#logging:
+#  level:
+#    com.p6spy: OFF
 
 
 kafka-config:
