@@ -1,10 +1,19 @@
 
-spring.application.name: spring-kafka-avro
+spring:
+  application:
+    name: spring-kafka-avro
+  jpa:
+    hibernate:
+      ddl-auto: create
+  datasource:
+    url: jdbc:mysql://localhost:3306/kafka-avro
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 1234
 
 
 kafka-config:
-#  bootstrap-servers: localhost:19092, localhost:29092, localhost:39092
-  bootstrap-servers: localhost:9021
+  bootstrap-servers: localhost:19092, localhost:29092, localhost:39092
   schema-registry-url-key: schema.registry.url
   schema-registry-url: http://localhost:8081
   num-of-partitions: 3
@@ -13,7 +22,7 @@ kafka-config:
 kafka-producer-config:
   key-serializer-class: org.apache.kafka.common.serialization.StringSerializer
   value-serializer-class: io.confluent.kafka.serializers.KafkaAvroSerializer
-  compression-type: none
+  compression-type: snappy
   acks: all
   batch-size: 16384
   batch-size-boost-factor: 100
