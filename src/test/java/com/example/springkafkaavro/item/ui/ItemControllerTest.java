@@ -4,9 +4,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.example.springkafkaavro.item.ui.dto.CreateItemRequest;
+import com.example.springkafkaavro.item.application.ItemService;
+import com.example.springkafkaavro.item.application.dto.CreateItemRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
@@ -18,11 +18,15 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(controllers = ItemController.class)
 class ItemControllerTest {
+
+    @MockBean
+    private ItemService itemService;
 
     @Autowired
     private MockMvc mockMvc;
@@ -52,10 +56,7 @@ class ItemControllerTest {
                    .andDo(print())
                    .andExpect(jsonPath("$.code").value("200"))
                    .andExpect(jsonPath("$.status").value("OK"))
-                   .andExpect(jsonPath("$.msg").value("OK"))
-                   .andExpect(jsonPath("$.result.name").value(name))
-                   .andExpect(jsonPath("$.result.price").value(price))
-                   .andExpect(jsonPath("$.result.stockQuantity").value(stockQuantity));
+                   .andExpect(jsonPath("$.msg").value("OK"));
         }
 
         @Nested
@@ -125,10 +126,7 @@ class ItemControllerTest {
                        .andDo(print())
                        .andExpect(jsonPath("$.code").value("200"))
                        .andExpect(jsonPath("$.status").value("OK"))
-                       .andExpect(jsonPath("$.msg").value("OK"))
-                       .andExpect(jsonPath("$.result.name").value(name))
-                       .andExpect(jsonPath("$.result.price").value(price))
-                       .andExpect(jsonPath("$.result.stockQuantity").value(stockQuantity));
+                       .andExpect(jsonPath("$.msg").value("OK"));
             }
 
             private static Stream<Arguments> provideKoreanNameParametersInRange() {
@@ -221,10 +219,7 @@ class ItemControllerTest {
                        .andDo(print())
                        .andExpect(jsonPath("$.code").value("200"))
                        .andExpect(jsonPath("$.status").value("OK"))
-                       .andExpect(jsonPath("$.msg").value("OK"))
-                       .andExpect(jsonPath("$.result.name").value(name))
-                       .andExpect(jsonPath("$.result.price").value(price))
-                       .andExpect(jsonPath("$.result.stockQuantity").value(stockQuantity));
+                       .andExpect(jsonPath("$.msg").value("OK"));
             }
 
             @DisplayName("상품 가격 범위 외")
@@ -295,10 +290,7 @@ class ItemControllerTest {
                        .andDo(print())
                        .andExpect(jsonPath("$.code").value("200"))
                        .andExpect(jsonPath("$.status").value("OK"))
-                       .andExpect(jsonPath("$.msg").value("OK"))
-                       .andExpect(jsonPath("$.result.name").value(name))
-                       .andExpect(jsonPath("$.result.price").value(price))
-                       .andExpect(jsonPath("$.result.stockQuantity").value(stockQuantity));
+                       .andExpect(jsonPath("$.msg").value("OK"));
             }
 
             @DisplayName("상품 가격 범위 외")

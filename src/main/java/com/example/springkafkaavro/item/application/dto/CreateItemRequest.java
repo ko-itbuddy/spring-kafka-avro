@@ -1,5 +1,6 @@
-package com.example.springkafkaavro.item.ui.dto;
+package com.example.springkafkaavro.item.application.dto;
 
+import com.example.springkafkaavro.item.domain.Item;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -24,4 +25,11 @@ public record CreateItemRequest(
     Long stockQuantity
 ) {
 
+    public Item toDomain() {
+        return Item.builder()
+                   .name(name)
+                   .price(price)
+                   .stockQuantity(stockQuantity)
+                   .build();
+    }
 }

@@ -1,5 +1,6 @@
-package com.example.springkafkaavro.item.ui.dto;
+package com.example.springkafkaavro.item.application.dto;
 
+import com.example.springkafkaavro.item.domain.Item;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema(description="상품 응답 객체")
@@ -13,5 +14,8 @@ public record ItemResponse(
     @Schema(description = "상품 재고 수량")
     Long stockQuantity
 ) {
-
+    public static ItemResponse of(Item item) {
+        return new ItemResponse(item.getId(), item.getName(), item.getPrice(),
+            item.getStockQuantity());
+    }
 }
