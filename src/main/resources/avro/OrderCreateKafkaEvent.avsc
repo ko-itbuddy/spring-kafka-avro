@@ -1,6 +1,6 @@
 {
   "name": "OrderCreateKafkaEvent",
-  "namespace": "example",
+  "namespace": "com.example.springkafkaavro.common.kafka.model",
   "type": "record",
   "fields": [
     {
