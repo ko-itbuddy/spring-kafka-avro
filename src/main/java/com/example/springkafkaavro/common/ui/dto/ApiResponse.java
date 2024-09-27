@@ -2,10 +2,12 @@ package com.example.springkafkaavro.common.ui.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 @Getter
 @Schema(description = "모든 응답의 기본객체")
+@NoArgsConstructor
 public class ApiResponse<T> {
 
     @Schema(description = "응답 코드")

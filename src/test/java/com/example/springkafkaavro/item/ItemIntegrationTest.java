@@ -1,14 +1,30 @@
-package com.example.springkafkaavro.item.ui;
+package com.example.springkafkaavro.item;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
+import com.example.springkafkaavro.common.BaseIntegrationTest;
+import com.example.springkafkaavro.common.ui.dto.ApiResponse;
 import com.example.springkafkaavro.item.application.ItemService;
 import com.example.springkafkaavro.item.application.dto.CreateItemRequest;
+import com.example.springkafkaavro.item.application.dto.ItemResponse;
+import com.example.springkafkaavro.item.application.interfaces.ItemRepository;
+import com.example.springkafkaavro.item.repository.entity.ItemEntity;
+import com.example.springkafkaavro.item.repository.jpa.ItemJpaRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.stream.Stream;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -17,15 +33,19 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
-@WebMvcTest(controllers = ItemController.class)
-class ItemControllerTest {
+class ItemIntegrationTest extends BaseIntegrationTest {
 
-    @MockBean
+    @Autowired
+    private ItemJpaRepository itemJpaRepository;
+
+    @Autowired
+    private ItemRepository itemRepository;
+
+    @Autowired
     private ItemService itemService;
 
     @Autowired
@@ -38,6 +58,36 @@ class ItemControllerTest {
     @DisplayName("상품 등록")
     class CreateItem {
 
+        private ItemResponse successTestAndReturnItemResponse(CreateItemRequest request)
+            throws Exception {
+            MvcResult result = mockMvc.perform(
+                                          post("/item")
+                                              .content(objectMapper.writeValueAsString(request))
+                                              .contentType(MediaType.APPLICATION_JSON)
+                                      )
+                                      .andDo(print())
+                                      .andExpect(jsonPath("$.code").value("200"))
+                                      .andExpect(jsonPath("$.status").value("OK"))
+                                      .andExpect(jsonPath("$.msg").value("OK"))
+                                      .andReturn();
+
+            ItemResponse response = convertMvcResultToApiResponse(result).getResult();
+
+            assertThat(response).extracting("name", "price", "stockQuantity")
+                                .containsExactly(request.name(), request.price(),
+                                    request.stockQuantity());
+
+            return response;
+        }
+
+        private ApiResponse<ItemResponse> convertMvcResultToApiResponse(MvcResult mvcResult)
+            throws IOException {
+            return objectMapper.readValue(
+                mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8),
+                new TypeReference<ApiResponse<ItemResponse>>() {
+                });
+        }
+
         @Test
         @DisplayName("성공 케이스")
         void success() throws Exception {
@@ -48,15 +98,10 @@ class ItemControllerTest {
             CreateItemRequest request = new CreateItemRequest(name, price, stockQuantity);
             // when
             // then
-            mockMvc.perform(
-                       post("/item")
-                           .content(objectMapper.writeValueAsString(request))
-                           .contentType(MediaType.APPLICATION_JSON)
-                   )
-                   .andDo(print())
-                   .andExpect(jsonPath("$.code").value("200"))
-                   .andExpect(jsonPath("$.status").value("OK"))
-                   .andExpect(jsonPath("$.msg").value("OK"));
+
+            ItemResponse itemResponse = successTestAndReturnItemResponse(request);
+
+
         }
 
         @Nested
@@ -118,15 +163,8 @@ class ItemControllerTest {
                 CreateItemRequest request = new CreateItemRequest(name, price, stockQuantity);
                 // when
                 // then
-                mockMvc.perform(
-                           post("/item")
-                               .content(objectMapper.writeValueAsString(request))
-                               .contentType(MediaType.APPLICATION_JSON)
-                       )
-                       .andDo(print())
-                       .andExpect(jsonPath("$.code").value("200"))
-                       .andExpect(jsonPath("$.status").value("OK"))
-                       .andExpect(jsonPath("$.msg").value("OK"));
+                ItemResponse itemResponse = successTestAndReturnItemResponse(request);
+
             }
 
             private static Stream<Arguments> provideKoreanNameParametersInRange() {
@@ -211,15 +249,7 @@ class ItemControllerTest {
                 CreateItemRequest request = new CreateItemRequest(name, price, stockQuantity);
                 // when
                 // then
-                mockMvc.perform(
-                           post("/item")
-                               .content(objectMapper.writeValueAsString(request))
-                               .contentType(MediaType.APPLICATION_JSON)
-                       )
-                       .andDo(print())
-                       .andExpect(jsonPath("$.code").value("200"))
-                       .andExpect(jsonPath("$.status").value("OK"))
-                       .andExpect(jsonPath("$.msg").value("OK"));
+                ItemResponse itemResponse = successTestAndReturnItemResponse(request);
             }
 
             @DisplayName("상품 가격 범위 외")
@@ -282,15 +312,7 @@ class ItemControllerTest {
                 CreateItemRequest request = new CreateItemRequest(name, price, stockQuantity);
                 // when
                 // then
-                mockMvc.perform(
-                           post("/item")
-                               .content(objectMapper.writeValueAsString(request))
-                               .contentType(MediaType.APPLICATION_JSON)
-                       )
-                       .andDo(print())
-                       .andExpect(jsonPath("$.code").value("200"))
-                       .andExpect(jsonPath("$.status").value("OK"))
-                       .andExpect(jsonPath("$.msg").value("OK"));
+                ItemResponse itemResponse = successTestAndReturnItemResponse(request);
             }
 
             @DisplayName("상품 가격 범위 외")
@@ -322,13 +344,48 @@ class ItemControllerTest {
     @DisplayName("상품 목록 조회")
     class GetItems {
 
+        ItemEntity createItemEntity(Long id, String name, Long price, Long stockQuantity) {
+            return ItemEntity.builder()
+                             .id(id)
+                             .name(name)
+                             .price(price)
+                             .stockQuantity(stockQuantity)
+                             .build();
+
+        }
+
+        @BeforeEach
+        void beforeEach() throws Exception {
+
+            ItemEntity item1 = createItemEntity(null, "좋은 상품1", 1000L, 10L);
+            ItemEntity item2 = createItemEntity(null, "좋은 상품2", 2000L, 20L);
+            ItemEntity item3 = createItemEntity(null, "좋은 상품3", 3000L, 30L);
+            ItemEntity item4 = createItemEntity(null, "좋은 상품4", 4000L, 40L);
+            ItemEntity item5 = createItemEntity(null, "좋은 상품5", 5000L, 50L);
+
+            itemJpaRepository.saveAll(List.of(item1, item2, item3, item4, item5));
+        }
+
+        @AfterEach
+        void afterEach() throws Exception {
+            itemJpaRepository.deleteAllInBatch();
+        }
+
+        private ApiResponse<List<ItemResponse>> convertMvcResultToApiResponse(MvcResult mvcResult)
+            throws UnsupportedEncodingException, JsonProcessingException {
+            return objectMapper.readValue(
+                mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8),
+                new TypeReference<ApiResponse<List<ItemResponse>>>() {
+                });
+        }
+
         @Test
         @DisplayName("성공 케이스")
         void success() throws Exception {
             // given
             // when
             // then
-            mockMvc.perform(
+            MvcResult result = mockMvc.perform(
                        get("/item")
                            .contentType(MediaType.APPLICATION_JSON)
                    )
@@ -336,7 +393,22 @@ class ItemControllerTest {
                    .andExpect(jsonPath("$.code").value("200"))
                    .andExpect(jsonPath("$.status").value("OK"))
                    .andExpect(jsonPath("$.msg").value("OK"))
-                   .andExpect(jsonPath("$.result").isEmpty());
+                                      .andReturn();
+
+            List<ItemResponse> itemResponsesList = convertMvcResultToApiResponse(
+                result).getResult();
+
+            assertThat(itemResponsesList)
+                .hasSize(5)
+                .extracting("name", "price", "stockQuantity")
+                .containsExactly(
+                    tuple("좋은 상품1", 1000L, 10L),
+                    tuple("좋은 상품2", 2000L, 20L),
+                    tuple("좋은 상품3", 3000L, 30L),
+                    tuple("좋은 상품4", 4000L, 40L),
+                    tuple("좋은 상품5", 5000L, 50L)
+                );
+
         }
     }
 }
