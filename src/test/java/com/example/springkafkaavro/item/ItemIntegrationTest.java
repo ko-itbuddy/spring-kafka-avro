@@ -125,7 +125,7 @@ class ItemIntegrationTest extends BaseIntegrationTest {
                        .andDo(print())
                        .andExpect(jsonPath("$.code").value("400"))
                        .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
-                       .andExpect(jsonPath("$.msg").value("상품 이름은 null 이면 안됩니다."))
+                       .andExpect(jsonPath("$.msg").value("상품 이름은 null이면 안됩니다."))
                        .andExpect(jsonPath("$.result").isEmpty());
             }
 

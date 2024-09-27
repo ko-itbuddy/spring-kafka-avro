@@ -19,7 +19,7 @@ import org.hibernate.validator.constraints.Range;
 public record CreateItemRequest(
     @Schema(description = "상품 이름", example = "좋은 상품")
     @Size(min = 3, max = 255, message = "상품 이름은 최소 3글자 최대 255글자입니다.")
-    @NotBlank(message = "상품 이름은 빈문자열이면 안됩니다.")
+    @NotNull(message = "상품 이름은 null이면 안됩니다.")
     String name,
 
     @Schema(description = "상품 가격", example = "5000")
