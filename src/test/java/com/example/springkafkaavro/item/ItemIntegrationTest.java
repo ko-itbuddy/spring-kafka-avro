@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 import com.example.springkafkaavro.common.BaseIntegrationTest;
+import com.example.springkafkaavro.common.EntityCreator;
 import com.example.springkafkaavro.common.ui.dto.ApiResponse;
 import com.example.springkafkaavro.item.application.ItemService;
 import com.example.springkafkaavro.item.application.dto.CreateItemRequest;
@@ -344,24 +345,14 @@ class ItemIntegrationTest extends BaseIntegrationTest {
     @DisplayName("상품 목록 조회")
     class GetItems {
 
-        ItemEntity createItemEntity(Long id, String name, Long price, Long stockQuantity) {
-            return ItemEntity.builder()
-                             .id(id)
-                             .name(name)
-                             .price(price)
-                             .stockQuantity(stockQuantity)
-                             .build();
-
-        }
-
         @BeforeEach
         void beforeEach() throws Exception {
 
-            ItemEntity item1 = createItemEntity(null, "좋은 상품1", 1000L, 10L);
-            ItemEntity item2 = createItemEntity(null, "좋은 상품2", 2000L, 20L);
-            ItemEntity item3 = createItemEntity(null, "좋은 상품3", 3000L, 30L);
-            ItemEntity item4 = createItemEntity(null, "좋은 상품4", 4000L, 40L);
-            ItemEntity item5 = createItemEntity(null, "좋은 상품5", 5000L, 50L);
+            ItemEntity item1 = EntityCreator.createItemEntity(null, "좋은 상품1", 1000L, 10L);
+            ItemEntity item2 = EntityCreator.createItemEntity(null, "좋은 상품2", 2000L, 20L);
+            ItemEntity item3 = EntityCreator.createItemEntity(null, "좋은 상품3", 3000L, 30L);
+            ItemEntity item4 = EntityCreator.createItemEntity(null, "좋은 상품4", 4000L, 40L);
+            ItemEntity item5 = EntityCreator.createItemEntity(null, "좋은 상품5", 5000L, 50L);
 
             itemJpaRepository.saveAll(List.of(item1, item2, item3, item4, item5));
         }
