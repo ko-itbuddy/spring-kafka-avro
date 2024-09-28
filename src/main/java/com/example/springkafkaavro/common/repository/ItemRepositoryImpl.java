@@ -1,9 +1,9 @@
-package com.example.springkafkaavro.item.repository;
+package com.example.springkafkaavro.common.repository;
 
 import com.example.springkafkaavro.item.application.interfaces.ItemRepository;
 import com.example.springkafkaavro.item.domain.Item;
-import com.example.springkafkaavro.item.repository.entity.ItemEntity;
-import com.example.springkafkaavro.item.repository.jpa.ItemJpaRepository;
+import com.example.springkafkaavro.common.repository.entity.ItemEntity;
+import com.example.springkafkaavro.common.repository.jpa.ItemJpaRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -22,5 +22,11 @@ public class ItemRepositoryImpl implements ItemRepository {
     @Override
     public Item save(Item item) {
         return itemJpaRepository.save(ItemEntity.of(item)).toDomain();
+    }
+
+
+    @Override
+    public List<Item> findAllById(List<Long> ids) {
+        return itemJpaRepository.findAllById(ids).stream().map(ItemEntity::toDomain).toList();
     }
 }

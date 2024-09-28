@@ -1,5 +1,6 @@
 package com.example.springkafkaavro.order.application.dto;
 
+import com.example.springkafkaavro.order.domain.Order;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 
@@ -13,5 +14,12 @@ public record OrderRequest(
     @Min(value = 1, message = "주문 수량은 1 이상의 수입니다.")
     Long quantity
 ) {
+
+    public Order toDomain() {
+        return Order.builder()
+                    .itemId(itemId)
+                    .quantity(quantity)
+                    .build();
+    }
 
 }

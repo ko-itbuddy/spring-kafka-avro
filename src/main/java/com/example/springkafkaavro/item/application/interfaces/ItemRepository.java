@@ -7,5 +7,7 @@ public interface ItemRepository {
 
     List<Item> findAll();
 
+    List<Item> findAllById(List<Long> ids);
+
     Item save(Item item);
 }

@@ -1,6 +1,6 @@
 package com.example.springkafkaavro.common;
 
-import com.example.springkafkaavro.item.repository.entity.ItemEntity;
+import com.example.springkafkaavro.common.repository.entity.ItemEntity;
 
 public class EntityCreator {
 

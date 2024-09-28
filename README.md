@@ -13,9 +13,9 @@ choreography saga, kafka, outbox,
     - [x] Item 추가
     - [x] Item Integration Test
 - [ ] Order
-    - [ ] Order 목록 조회
-    - [ ] Order 생성
-    - [ ] Order 취소
+    - [x] Order 목록 조회
+    - [x] Order 생성
+    - [x] Order 취소
     - [ ] Order Integration Test
 - [ ] Shipping
     - [ ] Order Shipping 변경

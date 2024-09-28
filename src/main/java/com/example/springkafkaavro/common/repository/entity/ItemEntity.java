@@ -1,4 +1,4 @@
-package com.example.springkafkaavro.item.repository.entity;
+package com.example.springkafkaavro.common.repository.entity;
 
 import com.example.springkafkaavro.item.domain.Item;
 import jakarta.persistence.Entity;

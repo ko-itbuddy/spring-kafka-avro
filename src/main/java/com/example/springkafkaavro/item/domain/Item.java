@@ -7,17 +7,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.coyote.BadRequestException;
 
+@Getter
 @Builder
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 public class Item {
 
     private Long id;
     private String name;
     private Long price;
-    Long stockQuantity;
+    private Long stockQuantity;
 
     public void increaseStockQuantity(Long quantity) {
         this.stockQuantity += quantity;
