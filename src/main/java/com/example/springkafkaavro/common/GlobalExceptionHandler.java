@@ -24,8 +24,8 @@ public class GlobalExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(BadRequest.class)
-    public ApiResponse<Object> badRequest(BadRequest e) {
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ApiResponse<Object> IllegalArgumentException(IllegalArgumentException e) {
         return ApiResponse.of(
             HttpStatus.BAD_REQUEST,
             e.getMessage(),
