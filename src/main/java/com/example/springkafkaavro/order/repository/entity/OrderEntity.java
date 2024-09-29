@@ -1,5 +1,6 @@
 package com.example.springkafkaavro.order.repository.entity;
 
+import com.example.springkafkaavro.common.repository.entity.BaseEntity;
 import com.example.springkafkaavro.order.domain.Order;
 import com.example.springkafkaavro.order.domain.OrderStatus;
 import jakarta.persistence.Entity;
@@ -21,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class OrderEntity {
+public class OrderEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
