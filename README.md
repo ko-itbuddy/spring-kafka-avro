@@ -1,6 +1,6 @@
 # spring-kafka-avro
 
-choreography saga, kafka, outbox, 
+choreography saga, kafka, outbox, Avro
 
 
 
@@ -18,4 +18,6 @@ choreography saga, kafka, outbox,
     - [x] Order 취소
     - [ ] Order Integration Test
 - [ ] Shipping
-    - [ ] Order Shipping 변경
+    - [x] Order Shipping 변경
+    - [x] Order Shipping 조회
+    - [ ] Shipping Integration Test
