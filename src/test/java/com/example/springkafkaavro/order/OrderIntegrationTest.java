@@ -98,7 +98,7 @@ class OrderIntegrationTest extends BaseIntegrationTest {
         private List<OrderResponse> successTestAndReturnOrderResponse(CreateOrderRequest request)
             throws Exception {
             MvcResult result = mockMvc.perform(
-                                          post("/order")
+                                          post("/orders")
                                               .content(objectMapper.writeValueAsString(request))
                                               .contentType(MediaType.APPLICATION_JSON)
                                       )
@@ -144,7 +144,7 @@ class OrderIntegrationTest extends BaseIntegrationTest {
             // when
             // then
             mockMvc.perform(
-                       post("/order")
+                       post("/orders")
                            .content(objectMapper.writeValueAsString(request))
                            .contentType(MediaType.APPLICATION_JSON)
                    )
@@ -163,7 +163,7 @@ class OrderIntegrationTest extends BaseIntegrationTest {
             // when
             // then
             mockMvc.perform(
-                       post("/order")
+                       post("/orders")
                            .content(objectMapper.writeValueAsString(request))
                            .contentType(MediaType.APPLICATION_JSON)
                    )
@@ -189,7 +189,7 @@ class OrderIntegrationTest extends BaseIntegrationTest {
             // when
             // then
             mockMvc.perform(
-                       post("/order")
+                       post("/orders")
                            .content(objectMapper.writeValueAsString(request))
                            .contentType(MediaType.APPLICATION_JSON)
                    )
@@ -220,7 +220,7 @@ class OrderIntegrationTest extends BaseIntegrationTest {
             // when
             // then
             mockMvc.perform(
-                       post("/order")
+                       post("/orders")
                            .content(request)
                            .contentType(MediaType.APPLICATION_JSON)
                    )

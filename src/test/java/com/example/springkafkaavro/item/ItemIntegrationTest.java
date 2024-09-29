@@ -62,7 +62,7 @@ class ItemIntegrationTest extends BaseIntegrationTest {
         private ItemResponse successTestAndReturnItemResponse(CreateItemRequest request)
             throws Exception {
             MvcResult result = mockMvc.perform(
-                                          post("/item")
+                                          post("/items")
                                               .content(objectMapper.writeValueAsString(request))
                                               .contentType(MediaType.APPLICATION_JSON)
                                       )
@@ -119,7 +119,7 @@ class ItemIntegrationTest extends BaseIntegrationTest {
                 // when
                 // then
                 mockMvc.perform(
-                           post("/item")
+                           post("/items")
                                .content(objectMapper.writeValueAsString(request))
                                .contentType(MediaType.APPLICATION_JSON)
                        )
@@ -141,7 +141,7 @@ class ItemIntegrationTest extends BaseIntegrationTest {
                 // when
                 // then
                 mockMvc.perform(
-                           post("/item")
+                           post("/items")
                                .content(objectMapper.writeValueAsString(request))
                                .contentType(MediaType.APPLICATION_JSON)
                        )
@@ -191,7 +191,7 @@ class ItemIntegrationTest extends BaseIntegrationTest {
                 // when
                 // then
                 mockMvc.perform(
-                           post("/item")
+                           post("/items")
                                .content(objectMapper.writeValueAsString(request))
                                .contentType(MediaType.APPLICATION_JSON)
                        )
@@ -228,7 +228,7 @@ class ItemIntegrationTest extends BaseIntegrationTest {
                 // when
                 // then
                 mockMvc.perform(
-                           post("/item")
+                           post("/items")
                                .content(objectMapper.writeValueAsString(request))
                                .contentType(MediaType.APPLICATION_JSON)
                        )
@@ -265,7 +265,7 @@ class ItemIntegrationTest extends BaseIntegrationTest {
                 // when
                 // then
                 mockMvc.perform(
-                           post("/item")
+                           post("/items")
                                .content(objectMapper.writeValueAsString(request))
                                .contentType(MediaType.APPLICATION_JSON)
                        )
@@ -292,7 +292,7 @@ class ItemIntegrationTest extends BaseIntegrationTest {
                 // when
                 // then
                 mockMvc.perform(
-                           post("/item")
+                           post("/items")
                                .content(objectMapper.writeValueAsString(request))
                                .contentType(MediaType.APPLICATION_JSON)
                        )
@@ -327,7 +327,7 @@ class ItemIntegrationTest extends BaseIntegrationTest {
                 // when
                 // then
                 mockMvc.perform(
-                           post("/item")
+                           post("/items")
                                .content(objectMapper.writeValueAsString(request))
                                .contentType(MediaType.APPLICATION_JSON)
                        )
@@ -377,7 +377,7 @@ class ItemIntegrationTest extends BaseIntegrationTest {
             // when
             // then
             MvcResult result = mockMvc.perform(
-                       get("/item")
+                       get("/items")
                            .contentType(MediaType.APPLICATION_JSON)
                    )
                    .andDo(print())
