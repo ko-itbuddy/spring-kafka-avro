@@ -1,0 +1,11 @@
+{
+  "name": "CancelOrderAvro",
+  "namespace": "com.example.springkafkaavro.order.event.avro",
+  "type": "record",
+  "fields": [
+    {
+      "name": "id",
+      "type": "long"
+    }
+  ]
+}

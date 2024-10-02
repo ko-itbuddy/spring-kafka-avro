@@ -1,0 +1,36 @@
+{
+  "name": "CreateOrderAvro",
+  "namespace": "com.example.springkafkaavro.order.event.avro",
+  "type": "record",
+  "fields": [
+    {
+      "name": "id",
+      "type": "long"
+    },
+    {
+      "name": "itemId",
+      "type": "long"
+    },
+    {
+      "name": "quantity",
+      "type": "long"
+    },
+    {
+      "name": "totalPrice",
+      "type": "long"
+    },
+    {
+      "name": "status",
+      "type": {
+        "type": "enum",
+        "name": "OrderStatusAvro",
+        "symbols": [
+          "ORDERED",
+          "REFUND",
+          "DELIVERED",
+          "CANCELED"
+        ]
+      }
+    }
+  ]
+}

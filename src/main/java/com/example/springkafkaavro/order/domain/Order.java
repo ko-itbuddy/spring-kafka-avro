@@ -14,7 +14,7 @@ public class Order{
     private Long itemId;
     private Long quantity;
     private Long totalPrice;
-    private OrderStatus status = OrderStatus.ORDERED;
+    private OrderStatus status;
 
     public void calculateTotalPrice(Item item) {
         this.totalPrice = item.getPrice() * quantity;
