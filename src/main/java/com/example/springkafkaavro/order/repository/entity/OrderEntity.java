@@ -35,7 +35,7 @@ public class OrderEntity extends BaseEntity {
     private Long totalPrice;
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus orderStatus;
+    private OrderStatus status;
 
     public Order toDomain() {
         return Order.builder()

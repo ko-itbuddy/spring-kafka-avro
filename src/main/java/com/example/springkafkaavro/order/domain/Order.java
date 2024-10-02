@@ -14,14 +14,14 @@ public class Order{
     private Long itemId;
     private Long quantity;
     private Long totalPrice;
-    private OrderStatus orderStatus = OrderStatus.ORDERED;
+    private OrderStatus status = OrderStatus.ORDERED;
 
     public void calculateTotalPrice(Item item) {
         this.totalPrice = item.getPrice() * quantity;
     }
 
     public void cancelOrder(){
-        orderStatus = OrderStatus.CANCELED;
+        status = OrderStatus.CANCELED;
     }
 
 }
