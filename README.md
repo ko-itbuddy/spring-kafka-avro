@@ -1,8 +1,12 @@
 # spring-kafka-avro
 
-choreography saga, kafka, outbox, Avro
+# 적용 기술 
+- Choreography saga
+- Outbox pattern 
+- Kafka
+- Apache Avro 
 
-
+![설계도](blue_print.png)
 
 
 
